@@ -1,0 +1,11 @@
+<div class="edit-component">
+  <div class="show" *ngIf="edition===false">
+    <a (click)="edit()">
+      {{ factor.value }}
+    </a>
+  </div>
+  <div class="edit" *ngIf="edition===true">
+    <input [(ngModel)]="factor.value" />
+    <ion-button size="small" (click)="edited()">Valider</ion-button>
+  </div>
+</div>

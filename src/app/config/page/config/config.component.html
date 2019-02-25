@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Configuration
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-input [(ngModel)]="factor" placeholder="Facteur d'influence"></ion-input>
+  <ion-button *ngIf="factor.length > 0" (click)="addFactor()">Ajouter</ion-button>
+  <ion-list lines="none">
+    <ion-list-header *ngIf="factors.length > 0">
+      <ion-label>Facteurs d'Influence</ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let factor of factors; let i = index">
+      <ion-icon slot="start" color="medium" name="book"></ion-icon>
+      <ion-label><app-editable [factor]="factor" (upsert)="upsertFactor($event)"></app-editable></ion-label>
+      <ion-button size="small" color="danger" (click)="remove(factor.id)"><i class="fa fa-times">X</i></ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>
