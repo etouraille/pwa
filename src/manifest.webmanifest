@@ -1,11 +1,11 @@
 {
   "name": "app",
   "short_name": "app",
-  "theme_color": "#1976d2",
-  "background_color": "#fafafa",
+  "theme_color": "#2196f3",
+  "background_color": "#2196f3",
   "display": "standalone",
-  "scope": "/",
-  "start_url": "/",
+  "Scope": "/",
+  "start_url": "/index.html",
   "icons": [
     {
       "src": "assets/icons/icon-72x72.png",
@@ -47,5 +47,6 @@
       "sizes": "512x512",
       "type": "image/png"
     }
-  ]
+  ],
+  "splash_pages": null
 }

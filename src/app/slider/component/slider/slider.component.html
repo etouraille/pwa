@@ -4,15 +4,17 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      Curseurs
+      Mesure chaque jour les différents points d'évaluation
     </ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
   <ion-slides pager="true" [options]="slideOpts" #slides>
     <ion-slide *ngFor="let evaluation of evals" >
-      <h1>{{ evaluation.factorName }}</h1>
+      <ion-header>{{ evaluation.factorName }}</ion-header>
+      <div style="clear:both;"></div>
       <mat-slider [(ngModel)]="evaluation.value" min="0" max="5" step="0.1" value="1.5" vertical (change)="valueChanged($event,evaluation)"></mat-slider>
+
     </ion-slide>
   </ion-slides>
   <button type="submit" float-left ion-button  color="primary" class="btnPrev" (click)="prev()">Prev</button>

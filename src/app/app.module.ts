@@ -18,9 +18,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import {HttpClientModule} from '@angular/common/http';
-
-
-const REDUCER_TOKEN = new InjectionToken<ActionReducerMap<fromFactor.State>>('reducer');
+import {FormsModule} from '@angular/forms';
 
 export function getReducers(service: Service) {
   return service.getReducers();
@@ -33,15 +31,19 @@ export function getReducers(service: Service) {
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    StoreModule.forRoot({ factor: fromFactor.reducer, evaluation: fromFactor.evaluationReducer }),
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: false }),
+    FormsModule,
+    StoreModule.forRoot({
+        factor: fromFactor.reducer,
+        evaluation: fromFactor.evaluationReducer,
+        message : fromFactor.messageReducer
+    }),
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     HttpClientModule,
   ],
   providers: [
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    //{ provide: REDUCER_TOKEN, deps: [Service], useFactory: getReducers},
     { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig}
   ],
   bootstrap: [AppComponent]

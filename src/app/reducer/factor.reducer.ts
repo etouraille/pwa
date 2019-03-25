@@ -6,6 +6,8 @@ import {createFeatureSelector, createSelector} from '@ngrx/store';
 import { Eval } from '../model/eval';
 import { EvalActionType } from '../action/eval.action';
 import { EvalEntity } from '../Entity/eval';
+import {Message} from '../model/message';
+import {MessageActionType} from '../action/message.action';
 
 export interface State extends EntityState<Factor> {
     ids: string[],
@@ -49,6 +51,35 @@ export function reducer(state = initialState, action: any ): State  {
         default:
             return state;
         break;
+
+    }
+}
+
+export interface MessageState extends EntityState<Message> {
+    ids: string[],
+    entities: { [ id: number ]: Message },
+    selectedMessageId: string | null,
+}
+
+export const messageAdapter: EntityAdapter<Message> = createEntityAdapter<Message>();
+
+export const initialMessageState: MessageState = adapter.getInitialState({
+    selectedMessageId: null,
+    ids: [],
+    entities: {}
+});
+
+
+export function messageReducer(state = initialMessageState, action: any ): MessageState  {
+    switch(action.type ) {
+        case MessageActionType.ADD_MESSAGE :
+            return messageAdapter.addOne(action.payload.message, state );
+        break;
+
+
+        default:
+            return state;
+            break;
 
     }
 }
@@ -193,6 +224,21 @@ const {
 } = adapter.getSelectors();
 
 //export const selectAllFactors = selectAll;
+
+export const selectMessageState = createFeatureSelector<MessageState>('message');
+
+export const selectAllMessage = createSelector(
+    selectMessageState,
+    (e) => {
+        console.log( 'store message', e);
+        const ret = [];
+        Object.keys(e.entities).map(key => {
+            ret.push(e.entities[key]);
+        })
+        return ret;
+    }
+)
+
 
 export const selectFactorState = createFeatureSelector<State>('factor');
 

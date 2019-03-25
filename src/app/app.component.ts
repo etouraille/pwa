@@ -11,6 +11,7 @@ import {selectAllFactor} from './reducer/factor.reducer';
 import {SwPush} from '@angular/service-worker';
 import {NotificationService} from './service/notification.service';
 import {HttpClient} from '@angular/common/http';
+import {RequestListenerService} from './service/request-listener.service';
 
 @Component({
   selector: 'app-root',
@@ -27,7 +28,12 @@ export class AppComponent implements OnDestroy {
       title: 'Configuration',
       url: '/config',
       icon: 'settings'
-    }
+    },
+    {
+          title: 'Visualisation',
+          url: '/viz',
+          icon: 'stats'
+     }
   ];
 
   subscribed = [];
@@ -41,6 +47,7 @@ export class AppComponent implements OnDestroy {
     private swPush: SwPush,
     private notification: NotificationService,
     private http: HttpClient,
+    private requestListener: RequestListenerService,
   ) {
     this.initializeApp();
       this.storage.get('factors').forEach(factor => {
@@ -59,21 +66,6 @@ export class AppComponent implements OnDestroy {
 
       this.swPush.messages.subscribe(message => {
           console.log('MESSAGE', message);
-      });
-    }
-
-    public subscribe() {
-      console.log( 'on subscribe');
-      this.swPush.requestSubscription({
-          serverPublicKey: 'BE0FtvWyTuFS36TUASKmdm6cdSmWBWb-sNny5zRZLurbpcklzZCV00zCi-YSpHYQzuc143_zGFWCnNEGIWVCDM0'
-      }).then(sub => {
-            this.notification.subscribe( sub );
-      }).catch( error => { console.log('could nt subscribe to notification', error )});
-    }
-
-    public test() {
-      this.http.get('http://localhost/api/test' ).subscribe( data => {
-          console.log( 'data test ', data );
       });
     }
 

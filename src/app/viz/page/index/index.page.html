@@ -1,0 +1,15 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Visualisation</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-item>
+        <ion-label>Filtres</ion-label>
+        <ion-select interface="alert" placeholder="Select One" (ionChange)="changeFilter($event)">
+            <ion-select-option value="{{ item.id }}" *ngFor="let item of filters">{{ item.filter }}</ion-select-option>
+        </ion-select>
+    </ion-item>
+    <graph [nodes]="nodes" [data]="data"></graph>
+</ion-content>

@@ -12,18 +12,17 @@ const routes: Routes = [
     loadChildren: './home/home.module#HomePageModule'
   },
   {
-    path: 'list',
-    loadChildren: './list/list.module#ListPageModule'
-  },
-  {
      path: 'config',
      loadChildren: './config/config.module#ConfigModule'
   },
   {
      path: 'slider',
      loadChildren: './slider/slider.module#SliderModule'
+  },
+  {
+    path: 'viz',
+    loadChildren: './viz/viz.module#VizModule'
   }
-
 ];
 
 @NgModule({

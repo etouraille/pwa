@@ -30,29 +30,6 @@
                 "input": "node_modules/ionicons/dist/ionicons/svg",
                 "output": "./svg"
               },
-              {
-                "glob": "workbox-sw.js",
-                "input": "node_modules/workbox-sw/build",
-                "output": "./workbox-3.6.3"
-              },
-              {
-                "glob": "workbox-core.prod.js",
-                "input": "node_modules/workbox-core/build/",
-                "output": "./workbox-3.6.3"
-              },
-              {
-                "glob": "workbox-precaching.prod.js",
-                "input": "node_modules/workbox-precaching/build/",
-                "output": "./workbox-3.6.3"
-              },{
-                "glob" : "workbox-routing.prod.js",
-                "input" : "node_modules/workbox-routing/build",
-                "output" : "./workbox-3.6.3"
-              },{
-                "glob" : "workbox-strategies.prod.js",
-                "input" : "node_modules/workbox-strategies/build",
-                "output" : "./workbox-3.6.3"
-              },
               "src/sw.js",
               "src/sw-register.js",
               "src/manifest.webmanifest",
