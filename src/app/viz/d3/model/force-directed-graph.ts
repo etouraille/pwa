@@ -35,7 +35,6 @@ export class ForceDirectedGraph {
         if (!this.simulation) {
             throw new Error('simulation was not initialized yet');
         }
-        console.log( 'inks', this.links);
         // Initializing the links force simulation
         this.simulation.force('links',
             d3.forceLink(this.links)

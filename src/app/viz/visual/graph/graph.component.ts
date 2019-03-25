@@ -6,7 +6,7 @@ import {GraphService} from '../../d3/graph';
 @Component({
     selector: 'graph',
     template: `
-    <svg #svg [attr.width]="data.options.width" [attr.height]="data.options.height">
+    <svg #svg [attr.width]="width" [attr.height]="height">
       <g>
         <g [linkVisual]="link" *ngFor="let link of links"></g>
         <g [nodeVisual]="node" *ngFor="let node of nodes"></g>
@@ -17,12 +17,14 @@ import {GraphService} from '../../d3/graph';
     styleUrls: ['./graph.component.css'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class GraphComponent implements OnInit, AfterViewInit {
+export class GraphComponent implements OnInit {
     @Input('nodes') nodes;
     @Input('data') data;
 
 
     public links: any;
+    public width: number = 0;
+    public height: number = 0;
 
     graph: ForceDirectedGraph;
 
@@ -30,15 +32,14 @@ export class GraphComponent implements OnInit, AfterViewInit {
 
     ngOnInit() {
 
-        /** Receiving an initialized simulated graph from our custom d3 service */
-        this.graph = this.d3Service.getForceDirectedGraph(this.nodes, this.links = this.graphService.getLines(this.data.data, this.data.options), this.data.options);
 
-        this.graph.ticker.subscribe((d) => {
+        this.data.subscribe((data ) => {
+
+            this.width = data.options.width;
+            this.height = data.options.height;
+            this.links = this.graphService.getLines(data.data, data.options);
             this.ref.markForCheck();
         });
-    }
 
-    ngAfterViewInit() {
-        this.graph.initSimulation(this.data.options);
     }
 }

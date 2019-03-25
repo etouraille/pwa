@@ -59,8 +59,12 @@ export class RepositoryService {
         return this.load();
     }
 
-    filter( index: number ) {
+    filter( indexes: any ) {
         const data = this.load();
-        return [ data[index] ];
+        const ret = [];
+        indexes.forEach( index => {
+            ret.push(data[parseInt(index)]);
+        });
+        return ret;
     }
 }

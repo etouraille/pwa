@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, Input, OnInit} from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
 import {GraphService} from '../../d3/graph';
 
@@ -24,20 +24,27 @@ export class LegendComponent implements OnInit {
 
     public data: any = [];
 
-    constructor(private sanitizer: DomSanitizer, private graphService : GraphService) {}
+    constructor(private sanitizer: DomSanitizer, private graphService: GraphService, private ref: ChangeDetectorRef ) {}
 
     ngOnInit() {
-        console.log( this.legend );
-        this.data = this.legend.data.map((elem, index ) => {
-            const ret = { style :  this.graphService.color(index, this.legend.data.length), text : elem.label };
-            return Object.assign(ret, this.position( index, this.legend.data.length ));
+
+        this.legend.subscribe( legend => {
+
+
+            this.data = legend.data.map((elem, index ) => {
+                const ret = { style :  this.graphService.color(index, legend.data.length), text : elem.label };
+                return Object.assign(ret, this.position( index, legend.data.length , legend ));
+            });
+            this.ref.markForCheck();
         });
+
+
     }
 
-    private position(index , sizeof ) {
+    private position(index , sizeof , legend ) {
 
-        const x = this.legend.options.width - 2 * 100;
-        const y = this.legend.options.height - ( sizeof - index ) * 25;
+        const x = legend.options.width - 2 * 100;
+        const y = legend.options.height - ( sizeof - index ) * 25;
         return {x : x, y : y };
     }
 

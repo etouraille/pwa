@@ -1,13 +1,17 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Visualisation</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-menu-button></ion-menu-button>
+        </ion-buttons>
+        <ion-title>
+            Visualisation
+        </ion-title>
+    </ion-toolbar>
 </ion-header>
-
 <ion-content padding>
     <ion-item>
         <ion-label>Filtres</ion-label>
-        <ion-select interface="alert" placeholder="Select One" (ionChange)="changeFilter($event)">
+        <ion-select interface="alert" placeholder="Selectionner" multiple="true" (ionChange)="changeFilter($event)">
             <ion-select-option value="{{ item.id }}" *ngFor="let item of filters">{{ item.filter }}</ion-select-option>
         </ion-select>
     </ion-item>

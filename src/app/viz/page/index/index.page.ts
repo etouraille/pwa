@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Link, Node} from '../../d3/model';
 import {GraphService} from '../../d3/graph';
 import {RepositoryService} from '../../data/repository';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
 
 @Component({
   selector: 'app-index',
@@ -11,11 +12,14 @@ import {RepositoryService} from '../../data/repository';
 export class IndexPage implements OnInit {
 
   public nodes: Node[] = [];
-  public options : any;
-  public data: any;
+  public options: any;
+  public data: BehaviorSubject<any> = new BehaviorSubject<any>({ data : [], options : {
+          width: window.innerWidth,
+          height: 500
+      }});
   public filters: any;
   constructor(private graphService: GraphService, private repository: RepositoryService) { }
-
+  public width = 992;
   ngOnInit() {
 
     /*
@@ -28,22 +32,28 @@ export class IndexPage implements OnInit {
         }
       }
      */
+      if( window.innerWidth < this.width ) {
+          this.width = window.innerWidth;
+      }
 
 
       this.filters = this.repository.getFilters();
 
       const data = this.repository.all();
 
-      this.data = { data : data , options : {
-              width: window.innerWidth,
+      this.data.next({ data : data , options : {
+              width: this.width,
               height: 500
-          }};
+          }});
   }
 
   changeFilter( value: any ) {
-      //sconsole.log( value.detail.value );
 
-      this.data = Object.assign(this.data, { data : this.repository.filter( parseInt(value.detail.value))});
-        console.log( this.data );
+      console.log( value );
+      this.data.next({ data : this.repository.filter( value.detail.value), options : {
+              width: this.width,
+              height: 500
+          }});
+
   }
 }

@@ -11,10 +11,10 @@
 <ion-content>
   <ion-slides pager="true" [options]="slideOpts" #slides>
     <ion-slide *ngFor="let evaluation of evals" >
-      <ion-header>{{ evaluation.factorName }}</ion-header>
-      <div style="clear:both;"></div>
-      <mat-slider [(ngModel)]="evaluation.value" min="0" max="5" step="0.1" value="1.5" vertical (change)="valueChanged($event,evaluation)"></mat-slider>
-
+      <ion-item>{{ evaluation.factorName }}</ion-item><br />
+      <ion-item>
+        <mat-slider [(ngModel)]="evaluation.value" min="0" max="5" step="0.1" value="1.5" vertical (change)="valueChanged($event,evaluation)"></mat-slider>
+      </ion-item>
     </ion-slide>
   </ion-slides>
   <button type="submit" float-left ion-button  color="primary" class="btnPrev" (click)="prev()">Prev</button>

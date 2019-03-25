@@ -11,7 +11,7 @@ export class GraphService {
     constructor(private sanitizer:DomSanitizer) {}
 
     color(index, sizeof ) {
-        const r = index / ( sizeof - 1 ) * 255;
+        const r = (sizeof !== 1) ? index / ( sizeof - 1 ) * 255 : 0;
         return  this.sanitizer.bypassSecurityTrustStyle('fill:rgb(' + r + ',100,' + r + ');' + 'stroke:rgb(' + r + ',100,' + r + ');');
     }
 
